@@ -1,16 +1,16 @@
 databases:
   mysql:
-    host: 127.0.0.1
+    host: mysql
     username: admin
     password: abcd1234
-    database: mvc-go
+    database: mvc
     port: 3306
   redis:
-    host: 127.0.0.1
+    host: redis
     port: 6379
     password:
 
 logger:
   fluentd:
-    host: 127.0.0.1
+    host: fluentd
     port: 24224

@@ -7,7 +7,6 @@ import (
 	"mvc/models"
 	"mvc/routes"
 	"mvc/utils/log"
-	"strconv"
 )
 
 func main() {
@@ -59,25 +58,3 @@ func initViper() (err error) {
 	err = viper.ReadInConfig()
 	return
 }
-
-func reverse(x int) int {
-	var result []rune
-	if x < 0 {
-		x *= -1
-		result = append(result, '-')
-	}
-	tmp := strconv.Itoa(x)
-	check := false
-	for i:= len(tmp)-1; i >=0; i-- {
-		if !check && tmp[i] == '0' {
-			continue
-		} else {
-			check = true
-			result = append(result, rune(tmp[i]))
-		}
-	}
-
-	answer, _ := strconv.Atoi(string(result))
-	return answer
-}
-
