@@ -1,9 +1,4 @@
-FROM golang:1.17-buster
-
-ENV GO111MODULE=on \
-    CGO_ENABLED=0 \
-    GOOS=linux \
-    GOARCH=arm64
+FROM golang:1.16 as build
 
 WORKDIR /mvc
 
@@ -11,6 +6,10 @@ COPY . .
 
 RUN go build -o app .
 
-EXPOSE 8080
+FROM gcr.io/distroless/base
+
+WORKDIR /mvc
+
+COPY --from=build /mvc /mvc
 
 CMD ["./app"]

@@ -9,7 +9,7 @@ import (
 func SetRouter() *gin.Engine  {
 	router := gin.Default()
 	router.TrustedPlatform = "True-Client-IP"
-	routes := router.Group("api", middlewares.LogRequest())
+	routes := router.Group("api")
 	{
 		userGroup := routes.Group("user", middlewares.VerifyToken())
 		{

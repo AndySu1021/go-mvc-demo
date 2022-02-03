@@ -2,11 +2,10 @@ package main
 
 import (
 	"github.com/spf13/viper"
-	syslog "log"
 	"mvc/databases"
 	"mvc/models"
 	"mvc/routes"
-	"mvc/utils/log"
+	"os"
 )
 
 func main() {
@@ -19,11 +18,11 @@ func main() {
 	}
 
 	// Init logger
-	err = log.InitFluentd()
-	if err != nil {
-		syslog.Println("Init fluentd failed.")
-	}
-	defer log.FluentdClient.Close()
+	//err = log.InitFluentd()
+	//if err != nil {
+	//	syslog.Println("Init fluentd failed.")
+	//}
+	//defer log.FluentdClient.Close()
 
 	// Init database
 	err = databases.InitMySql()
@@ -39,13 +38,17 @@ func main() {
 	}
 
 	// Init Redis
-	databases.InitRedis()
+	//databases.InitRedis()
 
 	// Register the routes
 	r := routes.SetRouter()
 
 	// start server on 8080 port
-	err = r.Run()
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = "8080"
+	}
+	err = r.Run(":" + port)
 	if err != nil {
 		return
 	}
