@@ -11,6 +11,12 @@ func SetRouter() *gin.Engine  {
 	router.TrustedPlatform = "True-Client-IP"
 	routes := router.Group("api")
 	{
+		routes.GET("", func(c *gin.Context) {
+			c.JSON(200, gin.H{
+				"message": "pong",
+			})
+		})
+
 		userGroup := routes.Group("user", middlewares.VerifyToken())
 		{
 			userGroup.POST("", controllers.CreateUser)
